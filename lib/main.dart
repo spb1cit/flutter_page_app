@@ -2,36 +2,13 @@
 // import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_page_app/Screens/Login/isolate.dart';
+import 'package:flutter_page_app/Screens/profile.dart';
+import 'package:flutter_page_app/Screens/worker_screen.dart';
 
 import 'package:hive_flutter/hive_flutter.dart';
 
 import 'package:flutter_page_app/Screens/Login/auth.dart';
-
-// import 'package:passcode_screen/circle.dart';
-// import 'package:passcode_screen/keyboard.dart';
-// import 'package:passcode_screen/passcode_screen.dart';
-
-// Future<void> openHiveBox(String boxName, {bool limit = false}) async {
-//   final box = await Hive.openBox(boxName).onError((error, stackTrace) async {
-//     final Directory dir = await getApplicationDocumentsDirectory();
-//     final String dirPath = dir.path;
-//     File dbFile = File('$dirPath/$boxName.hive');
-//     File lockFile = File('$dirPath/$boxName.lock');
-//     if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
-//       dbFile = File('$dirPath/BlackHole/$boxName.hive');
-//       lockFile = File('$dirPath/BlackHole/$boxName.lock');
-//     }
-//     await dbFile.delete();
-//     await lockFile.delete();
-//     await Hive.openBox(boxName);
-//     throw 'Failed to open $boxName Box\nError: $error';
-//   });
-//   // clear box if it grows large
-//   if (limit && box.length > 500) {
-//     box.clear();
-//   }
-// }
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -48,23 +25,25 @@ class StartApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      localizationsDelegates: const [
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate
-      ],
-      supportedLocales: const [
-        Locale('en', ''), // English, no country code
-        Locale('es', ''), // Spanish, no country code
-      ],
-      initialRoute:
-          (Hive.box('settings').get('hasSettings', defaultValue: false) as bool)
-              ? '/Auth'
-              : '/LoadSettings',
+      // localizationsDelegates: const [
+      //   GlobalMaterialLocalizations.delegate,
+      //   GlobalWidgetsLocalizations.delegate,
+      //   GlobalCupertinoLocalizations.delegate
+      // ],
+      // supportedLocales: const [
+      //   Locale('en', ''), // English, no country code
+      //   Locale('es', ''), // Spanish, no country code
+      // ],
+      initialRoute: "/ProfileScreen",
+      // (Hive.box('settings').get('hasSettings', defaultValue: false) as bool)
+      //     ? '/Auth'
+      //     : '/LoadSettings',
       routes: <String, WidgetBuilder>{
-        '/a': (BuildContext context) => const AuthScreen(),
-        '/b': (BuildContext context) => const AuthScreen(),
-        '/c': (BuildContext context) => const AuthScreen(),
+        '/AuthScreen': (BuildContext context) => const AuthScreen(),
+        '/IsolateTestScreen': (BuildContext context) =>
+            const IsolateTestScreen(),
+        '/ProfileScreen': (BuildContext context) => const ProfileScreen(),
+        '/WorkerScreen': (BuildContext context) => const WorkerScreen(),
       },
     );
   }
